@@ -30,7 +30,7 @@ export default function Product() {
 
   let [discountPriceFilter, setdiscountPriceFilter] = useState(null)
 
-  let [dropDownMenu, setdropDownMenu] = useState("Recommended")
+  let [dropDownMenu, setdropDownMenu] = useState("Sort By : Recommended")
 
   let [mobileFilterButton, setmobileFilterButton] = useState(false)
 
@@ -39,6 +39,8 @@ export default function Product() {
   let [totalPages, settotalPages] = useState(null)
 
   let [currentPage, setcurrentPage] = useState(null)
+
+  let [mobileSortBy,setmobileSortBy]=useState(false)
 
 
 
@@ -136,10 +138,36 @@ export default function Product() {
   return (
     <>
       <div className='w-full bottom-0 z-10 border-1 bg-white fixed  lg:hidden sm:hidden ' id='mobile-filter-buttons'>
-        <div className='w-full grid grid-cols-2 p-1'>
-          <button className='border-r'>Sort By</button>
+        <div className='w-full grid grid-cols-2 p-3'>
+          <button className='border-r' onClick={()=>setmobileSortBy(!mobileSortBy)}>{dropDownMenu}</button>
           <button onClick={() => setmobileFilterButton(!mobileFilterButton)}>Filters</button>
         </div>
+      </div>
+
+      <div className={`lg:hidden sm:hidden  w-[250px] bg-white border-1 rounded-sm -translate-x-1/2 left-[50%] -translate-y-1/2 shadow-lg fixed top-1/2    ${mobileSortBy ? 'block' : 'hidden'} `}>
+
+        <nav>
+          <ul>
+
+            {ShortBy.map((value, index) => {
+
+              let { id, title } = value
+              return (
+                <li className='p-2 border-b border-gray-400'
+                onClick={()=>{
+                  setmobileSortBy(false)
+                  setsorting(id)
+                  setdropDownMenu(title)
+                }}
+                >{title}</li>
+              )
+
+
+            })}
+
+
+          </ul>
+        </nav>
       </div>
 
       <section className='max-w-full bg-white'>
@@ -267,7 +295,7 @@ export default function Product() {
               <ToastContainer />
               <div className='relative lg:block sm:block hidden'>
                 <button className='border-2 px-2 py-1 cursor-pointer flex items-center font-semibold' onClick={() => setsortBy(!sorrtBy)}>
-                  Sort by : {dropDownMenu}
+                  {dropDownMenu}
 
                   <IoMdArrowDropdown className='text-xl' />
 
