@@ -1,0 +1,3 @@
+https://wscubetech.co/ecommerce-api/categories.php
+https://wscubetech.co/ecommerce-api/brands.php
+https://wscubetech.co/ecommerce-api/products.php

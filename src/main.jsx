@@ -9,20 +9,28 @@ import Product from './pages/Product'
 import Cart from './pages/Cart'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Error404 from './common/Error404'
+import ProductDetails from './pages/ProductDetails'
+import MainContext from './pages/MainContext'
 
 
 createRoot(document.getElementById('root')).render(
-  <BrowserRouter>
-    <Routes>
-      <Route path='/' element={<MainLayout />}>
-        <Route path='/' element={<Home />} />
 
-        <Route path='/product' element={<Product />} />
-        <Route path='/cart' element={<Cart />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-      </Route>
+  <MainContext>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<MainLayout />}>
+          <Route path='/' element={<Home />} />
 
-    </Routes>
-  </BrowserRouter>
+          <Route path='/product' element={<Product />} />
+          <Route path='/product-details/:pid' element={<ProductDetails />} />
+          <Route path='/cart' element={<Cart />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='*' element={<Error404 />} />
+        </Route>
+
+      </Routes>
+    </BrowserRouter>
+  </MainContext>
 )

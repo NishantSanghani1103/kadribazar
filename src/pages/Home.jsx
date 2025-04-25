@@ -1,13 +1,38 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { IoArrowForward } from "react-icons/io5";
 import { IoIosStar } from "react-icons/io";
 import { FaHeart } from "react-icons/fa";
+import { counterContext } from './MainContext';
+import axios from 'axios';
+
+import { ToastContainer, toast } from 'react-toastify';
 export default function Home() {
+
+
+
+    let [homeItems, sethomeItems] = useState([])
+
+    let getHomeProduct = () => {
+        axios.get("https://dummyjson.com/products")
+            .then((res) => res.data)
+            .then((finalres) => {
+                console.log(finalres.products)
+                sethomeItems(finalres.products)
+            })
+    }
+
+
+    useEffect(() => {
+        getHomeProduct()
+    }, [])
+
+    // let {count,setcount}=useContext(counterContext)
     return (
         <>
+            {/* <button className='border-1' onClick={()=>setcount(count+1)}>Count</button> */}
             <section className='max-w-[1280px] mx-auto' id='banner'>
                 <div className='w-[100%] mt-[50px] grid lg:grid-cols-[55%_auto] gap-y-4 md:grid-cols-[55%_auto] grid-flow-dense items-center justify-between' id='banner-mid'>
-                    <div className=''>
+                    <div className='lg:order-1 sm:order-1 order-2 sm:mx-2 mx-2 lg:mx-0'>
                         <h1 className='lg:text-6xl md:text-4xl text-2xl  font-extrabold'>The experience makes all the difference. </h1>
                         <p className='lg:text-xl py-4 text-gray-400'>From checkout to global sales tax compliance, companies around the world use Flowbite to simplify their payment stack.</p>
                         <div className='flex gap-3'>
@@ -15,7 +40,7 @@ export default function Home() {
                             <button className='border-1 py-3 px-8 rounded-sm'>Offers</button>
                         </div>
                     </div>
-                    <div>
+                    <div className='lg:order-2 sm:order-2 order-1'>
                         <figure>
                             <img src="/images/phone-mockup.png" alt="" />
                         </figure>
@@ -64,13 +89,13 @@ export default function Home() {
                     </div>
 
                 </div>
-                <div id='accesooryImageTab' className='relative'>
+                <div id='accesooryImageTab' className='relative lg:hidden sm:block block'>
                     <img src="/images/olive-tatiane-Im-Ez-F9-B91-Mk-unsplash-2.png" className='lg:hidden hidden sm:block sm:w-[100%]' alt="" />
                     <div className='absolute bottom-1 left-[50%]  bg-white  categoryButton' style={{ transform: "translate(-50%,-50%)" }}>
-                            <button className='py-2 px-10 font-bold'>Accessories</button>
-                        </div>
+                        <button className='py-2 px-10 font-bold'>Accessories</button>
+                    </div>
                 </div>
-               
+
             </section>
 
             <section className=' max-w-[95%] mx-auto mt-14' id='differentProduct'>
@@ -78,757 +103,95 @@ export default function Home() {
                     <h2 className='text-center lg:text-6xl sm:text-5xl text-2xl font-extrabold'>Get difference Product</h2>
                 </div>
                 <div className='max-w-full mt-7 grid lg:grid-cols-5 sm:grid-cols-3 gap-2'>
-                    <div className=' shadow-2xl bg-white rounded-md relative differentProductItems'>
-                        <img src="/images/thumbnail.png" className='mx-auto' alt="" />
-                        <div className='p-2 differentProductItemsContent'>
-                            <p className='font-semibold'>Essence Mascara Lash Princess</p>
-                            <span className='text-amber-700 font-bold'>Rs 9.99</span>
-                            <p className='text-gray-500 text-xs py-2'>Essence</p>
-                            <div className='flex items-center justify-between pb-2'>
-                                <div className='flex items-center'>
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <p className='text-xs pl-1'>(4.94)</p>
-                                </div>
-                                <div>
-                                    <button className='bg-blue-600 text-white py-1 px-3 rounded-md text-sm'> ADD</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' absolute top-3 right-4 wishlistIcon'>
-                            <FaHeart className='text-red-800 text-xl' />
-                        </div>
-                    </div>
 
-                    <div className=' shadow-2xl bg-white relative differentProductItems'>
-                        <img src="/images/thumbnail (3).png" className='mx-auto' alt="" />
-                        <div className='p-2 differentProductItemsContent'>
-                            <p className='font-semibold'>Eyeshadow Palette with Mirror</p>
-                            <span className='text-amber-700 font-bold'>Rs 19.99</span>
-                            <p className='text-gray-500 text-xs py-2'>Glamour Beauty</p>
-                            <div className='flex items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <p className='text-xs pl-1'>(3.28)</p>
-                                </div>
-                                <div>
-                                    <button className='bg-blue-600 text-white py-1 px-3 rounded-md text-sm'> ADD</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' absolute top-3 right-4 wishlistIcon'>
-                            <FaHeart className='text-red-800 text-xl' />
-                        </div>
-                    </div>
 
-                    <div className=' shadow-2xl bg-white relative differentProductItems'>
-                        <img src="/images/thumbnail.png" className='mx-auto' alt="" />
-                        <div className='p-2 differentProductItemsContent'>
-                            <p className='font-semibold'>Essence Mascara Lash Princess</p>
-                            <span className='text-amber-700 font-bold'>Rs 9.99</span>
-                            <p className='text-gray-500 text-xs py-2'>Essence</p>
-                            <div className='flex items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <p className='text-xs pl-1'>(4.94)</p>
-                                </div>
-                                <div>
-                                    <button className='bg-blue-600 text-white py-1 px-3 rounded-md text-sm'> ADD</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' absolute top-3 right-4 wishlistIcon'>
-                            <FaHeart className='text-red-800 text-xl' />
-                        </div>
-                    </div>
+                    {
+                        homeItems.map((items, index) => {
+                            return (
+                                <CategoryItems hData={items} key={index} />
+                            )
+                        })
+                    }
 
-                    <div className=' shadow-2xl bg-white relative differentProductItems'>
-                        <img src="/images/thumbnail.png" alt="" />
-                        <div className='p-2 differentProductItemsContent'>
-                            <p className='font-semibold'>Essence Mascara Lash Princess</p>
-                            <span className='text-amber-700 font-bold'>Rs 9.99</span>
-                            <p className='text-gray-500 text-xs py-2'>Essence</p>
-                            <div className='flex items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <p className='text-xs pl-1'>(4.94)</p>
-                                </div>
-                                <div>
-                                    <button className='bg-blue-600 text-white py-1 px-3 rounded-md text-sm'> ADD</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' absolute top-3 right-4 wishlistIcon'>
-                            <FaHeart className='text-red-800 text-xl' />
-                        </div>
-                    </div>
 
-                    <div className=' shadow-2xl bg-white relative differentProductItems'>
-                        <img src="/images/thumbnail.png" alt="" />
-                        <div className='p-2 differentProductItemsContent'>
-                            <p className='font-semibold'>Essence Mascara Lash Princess</p>
-                            <span className='text-amber-700 font-bold'>Rs 9.99</span>
-                            <p className='text-gray-500 text-xs py-2'>Essence</p>
-                            <div className='flex items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <p className='text-xs pl-1'>(4.94)</p>
-                                </div>
-                                <div>
-                                    <button className='bg-blue-600 text-white py-1 px-3 rounded-md text-sm'> ADD</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' absolute top-3 right-4 wishlistIcon'>
-                            <FaHeart className='text-red-800 text-xl' />
-                        </div>
-                    </div>
 
-                    <div className=' shadow-2xl bg-white relative differentProductItems'>
-                        <img src="/images/thumbnail.png" alt="" />
-                        <div className='p-2 differentProductItemsContent'>
-                            <p className='font-semibold'>Essence Mascara Lash Princess</p>
-                            <span className='text-amber-700 font-bold'>Rs 9.99</span>
-                            <p className='text-gray-500 text-xs py-2'>Essence</p>
-                            <div className='flex items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <p className='text-xs pl-1'>(4.94)</p>
-                                </div>
-                                <div>
-                                    <button className='bg-blue-600 text-white py-1 px-3 rounded-md text-sm'> ADD</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' absolute top-3 right-4 wishlistIcon'>
-                            <FaHeart className='text-red-800 text-xl' />
-                        </div>
-                    </div>
 
-                    <div className=' shadow-2xl bg-white relative differentProductItems'>
-                        <img src="/images/thumbnail.png" alt="" />
-                        <div className='p-2 differentProductItemsContent'>
-                            <p className='font-semibold'>Essence Mascara Lash Princess</p>
-                            <span className='text-amber-700 font-bold'>Rs 9.99</span>
-                            <p className='text-gray-500 text-xs py-2'>Essence</p>
-                            <div className='flex items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <p className='text-xs pl-1'>(4.94)</p>
-                                </div>
-                                <div>
-                                    <button className='bg-blue-600 text-white py-1 px-3 rounded-md text-sm'> ADD</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' absolute top-3 right-4 wishlistIcon'>
-                            <FaHeart className='text-red-800 text-xl' />
-                        </div>
-                    </div>
 
-                    <div className=' shadow-2xl bg-white relative differentProductItems'>
-                        <img src="/images/thumbnail.png" alt="" />
-                        <div className='p-2 differentProductItemsContent'>
-                            <p className='font-semibold'>Essence Mascara Lash Princess</p>
-                            <span className='text-amber-700 font-bold'>Rs 9.99</span>
-                            <p className='text-gray-500 text-xs py-2'>Essence</p>
-                            <div className='flex items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <p className='text-xs pl-1'>(4.94)</p>
-                                </div>
-                                <div>
-                                    <button className='bg-blue-600 text-white py-1 px-3 rounded-md text-sm'> ADD</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' absolute top-3 right-4 wishlistIcon'>
-                            <FaHeart className='text-red-800 text-xl' />
-                        </div>
-                    </div>
+                </div>
 
-                    <div className=' shadow-2xl bg-white relative differentProductItems'>
-                        <img src="/images/thumbnail.png" alt="" />
-                        <div className='p-2 differentProductItemsContent'>
-                            <p className='font-semibold'>Essence Mascara Lash Princess</p>
-                            <span className='text-amber-700 font-bold'>Rs 9.99</span>
-                            <p className='text-gray-500 text-xs py-2'>Essence</p>
-                            <div className='flex items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <p className='text-xs pl-1'>(4.94)</p>
-                                </div>
-                                <div>
-                                    <button className='bg-blue-600 text-white py-1 px-3 rounded-md text-sm'> ADD</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' absolute top-3 right-4 wishlistIcon'>
-                            <FaHeart className='text-red-800 text-xl' />
-                        </div>
-                    </div>
+                <ToastContainer />
+            </section>
 
-                    <div className=' shadow-2xl bg-white relative differentProductItems'>
-                        <img src="/images/thumbnail.png" alt="" />
-                        <div className='p-2 differentProductItemsContent'>
-                            <p className='font-semibold'>Essence Mascara Lash Princess</p>
-                            <span className='text-amber-700 font-bold'>Rs 9.99</span>
-                            <p className='text-gray-500 text-xs py-2'>Essence</p>
-                            <div className='flex items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <p className='text-xs pl-1'>(4.94)</p>
-                                </div>
-                                <div>
-                                    <button className='bg-blue-600 text-white py-1 px-3 rounded-md text-sm'> ADD</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' absolute top-3 right-4 wishlistIcon'>
-                            <FaHeart className='text-red-800 text-xl' />
-                        </div>
-                    </div>
+        </>
 
-                    <div className=' shadow-2xl bg-white relative differentProductItems'>
-                        <img src="/images/thumbnail.png" alt="" />
-                        <div className='p-2 differentProductItemsContent'>
-                            <p className='font-semibold'>Essence Mascara Lash Princess</p>
-                            <span className='text-amber-700 font-bold'>Rs 9.99</span>
-                            <p className='text-gray-500 text-xs py-2'>Essence</p>
-                            <div className='flex items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <p className='text-xs pl-1'>(4.94)</p>
-                                </div>
-                                <div>
-                                    <button className='bg-blue-600 text-white py-1 px-3 rounded-md text-sm'> ADD</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' absolute top-3 right-4 wishlistIcon'>
-                            <FaHeart className='text-red-800 text-xl' />
-                        </div>
-                    </div>
+    )
+}
 
-                    <div className=' shadow-2xl bg-white relative differentProductItems'>
-                        <img src="/images/thumbnail.png" alt="" />
-                        <div className='p-2 differentProductItemsContent'>
-                            <p className='font-semibold'>Essence Mascara Lash Princess</p>
-                            <span className='text-amber-700 font-bold'>Rs 9.99</span>
-                            <p className='text-gray-500 text-xs py-2'>Essence</p>
-                            <div className='flex items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <p className='text-xs pl-1'>(4.94)</p>
-                                </div>
-                                <div>
-                                    <button className='bg-blue-600 text-white py-1 px-3 rounded-md text-sm'> ADD</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' absolute top-3 right-4 wishlistIcon'>
-                            <FaHeart className='text-red-800 text-xl' />
-                        </div>
-                    </div>
+function CategoryItems({ hData }) {
 
-                    <div className=' shadow-2xl bg-white relative differentProductItems'>
-                        <img src="/images/thumbnail.png" alt="" />
-                        <div className='p-2 differentProductItemsContent'>
-                            <p className='font-semibold'>Essence Mascara Lash Princess</p>
-                            <span className='text-amber-700 font-bold'>Rs 9.99</span>
-                            <p className='text-gray-500 text-xs py-2'>Essence</p>
-                            <div className='flex items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <p className='text-xs pl-1'>(4.94)</p>
-                                </div>
-                                <div>
-                                    <button className='bg-blue-600 text-white py-1 px-3 rounded-md text-sm'> ADD</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' absolute top-3 right-4 wishlistIcon'>
-                            <FaHeart className='text-red-800 text-xl' />
-                        </div>
-                    </div>
+    let { id, title, description, rating, price, thumbnail, category } = hData
 
-                    <div className=' shadow-2xl bg-white relative differentProductItems'>
-                        <img src="/images/thumbnail.png" alt="" />
-                        <div className='p-2 differentProductItemsContent'>
-                            <p className='font-semibold'>Essence Mascara Lash Princess</p>
-                            <span className='text-amber-700 font-bold'>Rs 9.99</span>
-                            <p className='text-gray-500 text-xs py-2'>Essence</p>
-                            <div className='flex items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <p className='text-xs pl-1'>(4.94)</p>
-                                </div>
-                                <div>
-                                    <button className='bg-blue-600 text-white py-1 px-3 rounded-md text-sm'> ADD</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' absolute top-3 right-4 wishlistIcon'>
-                            <FaHeart className='text-red-800 text-xl' />
-                        </div>
-                    </div>
+    let { cart, setcart } = useContext(counterContext)
 
-                    <div className=' shadow-2xl bg-white relative differentProductItems'>
-                        <img src="/images/thumbnail.png" alt="" />
-                        <div className='p-2 differentProductItemsContent'>
-                            <p className='font-semibold'>Essence Mascara Lash Princess</p>
-                            <span className='text-amber-700 font-bold'>Rs 9.99</span>
-                            <p className='text-gray-500 text-xs py-2'>Essence</p>
-                            <div className='flex items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <p className='text-xs pl-1'>(4.94)</p>
-                                </div>
-                                <div>
-                                    <button className='bg-blue-600 text-white py-1 px-3 rounded-md text-sm'> ADD</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' absolute top-3 right-4 wishlistIcon'>
-                            <FaHeart className='text-red-800 text-xl' />
-                        </div>
-                    </div>
 
-                    <div className=' shadow-2xl bg-white relative differentProductItems'>
-                        <img src="/images/thumbnail.png" alt="" />
-                        <div className='p-2 differentProductItemsContent'>
-                            <p className='font-semibold'>Essence Mascara Lash Princess</p>
-                            <span className='text-amber-700 font-bold'>Rs 9.99</span>
-                            <p className='text-gray-500 text-xs py-2'>Essence</p>
-                            <div className='flex items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <p className='text-xs pl-1'>(4.94)</p>
-                                </div>
-                                <div>
-                                    <button className='bg-blue-600 text-white py-1 px-3 rounded-md text-sm'> ADD</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' absolute top-3 right-4 wishlistIcon'>
-                            <FaHeart className='text-red-800 text-xl' />
-                        </div>
-                    </div>
 
-                    <div className=' shadow-2xl bg-white relative differentProductItems'>
-                        <img src="/images/thumbnail.png" alt="" />
-                        <div className='p-2 differentProductItemsContent'>
-                            <p className='font-semibold'>Essence Mascara Lash Princess</p>
-                            <span className='text-amber-700 font-bold'>Rs 9.99</span>
-                            <p className='text-gray-500 text-xs py-2'>Essence</p>
-                            <div className='flex items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <p className='text-xs pl-1'>(4.94)</p>
-                                </div>
-                                <div>
-                                    <button className='bg-blue-600 text-white py-1 px-3 rounded-md text-sm'> ADD</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' absolute top-3 right-4 wishlistIcon'>
-                            <FaHeart className='text-red-800 text-xl' />
-                        </div>
-                    </div>
+    let homeItmesObj = {
+        id,
+        title,
+        rating,
+        price,
+        thumbnail,
+        category
+    }
 
-                    <div className=' shadow-2xl bg-white relative differentProductItems'>
-                        <img src="/images/thumbnail.png" alt="" />
-                        <div className='p-2 differentProductItemsContent'>
-                            <p className='font-semibold'>Essence Mascara Lash Princess</p>
-                            <span className='text-amber-700 font-bold'>Rs 9.99</span>
-                            <p className='text-gray-500 text-xs py-2'>Essence</p>
-                            <div className='flex items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <p className='text-xs pl-1'>(4.94)</p>
-                                </div>
-                                <div>
-                                    <button className='bg-blue-600 text-white py-1 px-3 rounded-md text-sm'> ADD</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' absolute top-3 right-4 wishlistIcon'>
-                            <FaHeart className='text-red-800 text-xl' />
-                        </div>
-                    </div>
+    let AddToCart = () => {
+        setcart([...cart, homeItmesObj])
+        toast.success("Item Added In Cart")
+    }
 
-                    <div className=' shadow-2xl bg-white relative differentProductItems'>
-                        <img src="/images/thumbnail.png" alt="" />
-                        <div className='p-2 differentProductItemsContent'>
-                            <p className='font-semibold'>Essence Mascara Lash Princess</p>
-                            <span className='text-amber-700 font-bold'>Rs 9.99</span>
-                            <p className='text-gray-500 text-xs py-2'>Essence</p>
-                            <div className='flex items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <p className='text-xs pl-1'>(4.94)</p>
-                                </div>
-                                <div>
-                                    <button className='bg-blue-600 text-white py-1 px-3 rounded-md text-sm'> ADD</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' absolute top-3 right-4 wishlistIcon'>
-                            <FaHeart className='text-red-800 text-xl' />
-                        </div>
-                    </div>
+    let checkCartItems = cart.filter((items) => items.id == id)
+    // console.log(checkCartItems, id)
 
-                    <div className=' shadow-2xl bg-white relative differentProductItems'>
-                        <img src="/images/thumbnail.png" alt="" />
-                        <div className='p-2 differentProductItemsContent'>
-                            <p className='font-semibold'>Essence Mascara Lash Princess</p>
-                            <span className='text-amber-700 font-bold'>Rs 9.99</span>
-                            <p className='text-gray-500 text-xs py-2'>Essence</p>
-                            <div className='flex items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <p className='text-xs pl-1'>(4.94)</p>
-                                </div>
-                                <div>
-                                    <button className='bg-blue-600 text-white py-1 px-3 rounded-md text-sm'> ADD</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' absolute top-3 right-4 wishlistIcon'>
-                            <FaHeart className='text-red-800 text-xl' />
-                        </div>
-                    </div>
 
-                    <div className=' shadow-2xl bg-white relative differentProductItems'>
-                        <img src="/images/thumbnail.png" alt="" />
-                        <div className='p-2 differentProductItemsContent'>
-                            <p className='font-semibold'>Essence Mascara Lash Princess</p>
-                            <span className='text-amber-700 font-bold'>Rs 9.99</span>
-                            <p className='text-gray-500 text-xs py-2'>Essence</p>
-                            <div className='flex items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <p className='text-xs pl-1'>(4.94)</p>
-                                </div>
-                                <div>
-                                    <button className='bg-blue-600 text-white py-1 px-3 rounded-md text-sm'> ADD</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' absolute top-3 right-4 wishlistIcon'>
-                            <FaHeart className='text-red-800 text-xl' />
-                        </div>
-                    </div>
+    let removeFromCart = () => {
+        if ((confirm("Are You Want To Sure For Remove Items ?"))) {
+            let finalCartAfterRemove = cart.filter((items) => items.id != id)
+            console.log(finalCartAfterRemove)
+            setcart(finalCartAfterRemove)
+            toast.success("Item Removed From Cart")
+        }
 
-                    <div className=' shadow-2xl bg-white relative differentProductItems'>
-                        <img src="/images/thumbnail.png" alt="" />
-                        <div className='p-2 differentProductItemsContent'>
-                            <p className='font-semibold'>Essence Mascara Lash Princess</p>
-                            <span className='text-amber-700 font-bold'>Rs 9.99</span>
-                            <p className='text-gray-500 text-xs py-2'>Essence</p>
-                            <div className='flex items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <p className='text-xs pl-1'>(4.94)</p>
-                                </div>
-                                <div>
-                                    <button className='bg-blue-600 text-white py-1 px-3 rounded-md text-sm'> ADD</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' absolute top-3 right-4 wishlistIcon'>
-                            <FaHeart className='text-red-800 text-xl' />
-                        </div>
-                    </div>
+    }
 
-                    <div className=' shadow-2xl bg-white relative differentProductItems'>
-                        <img src="/images/thumbnail.png" alt="" />
-                        <div className='p-2 differentProductItemsContent'>
-                            <p className='font-semibold'>Essence Mascara Lash Princess</p>
-                            <span className='text-amber-700 font-bold'>Rs 9.99</span>
-                            <p className='text-gray-500 text-xs py-2'>Essence</p>
-                            <div className='flex items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <p className='text-xs pl-1'>(4.94)</p>
-                                </div>
-                                <div>
-                                    <button className='bg-blue-600 text-white py-1 px-3 rounded-md text-sm'> ADD</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' absolute top-3 right-4 wishlistIcon'>
-                            <FaHeart className='text-red-800 text-xl' />
-                        </div>
+    return (
+        <div className=' shadow-2xl bg-white relative differentProductItems'>
+            <img src={thumbnail} alt="" className='mx-auto' />
+            <div className='p-2 differentProductItemsContent'>
+                <p className='font-semibold'>{title}</p>
+                <span className='text-amber-700 font-bold'>Rs {price}</span>
+                <p className='text-gray-500 text-xs py-2'>{category}</p>
+                <div className='flex items-center justify-between'>
+                    <div className='flex items-center'>
+                        <IoIosStar className='text-yellow-600' />
+                        <IoIosStar className='text-yellow-600' />
+                        <IoIosStar className='text-yellow-600' />
+                        <IoIosStar className='text-yellow-600' />
+                        <IoIosStar className='text-yellow-600' />
+                        <p className='text-xs pl-1'>({rating})</p>
                     </div>
-
-                    <div className=' shadow-2xl bg-white relative differentProductItems'>
-                        <img src="/images/thumbnail.png" alt="" />
-                        <div className='p-2 differentProductItemsContent'>
-                            <p className='font-semibold'>Essence Mascara Lash Princess</p>
-                            <span className='text-amber-700 font-bold'>Rs 9.99</span>
-                            <p className='text-gray-500 text-xs py-2'>Essence</p>
-                            <div className='flex items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <p className='text-xs pl-1'>(4.94)</p>
-                                </div>
-                                <div>
-                                    <button className='bg-blue-600 text-white py-1 px-3 rounded-md text-sm'> ADD</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' absolute top-3 right-4 wishlistIcon'>
-                            <FaHeart className='text-red-800 text-xl' />
-                        </div>
-                    </div>
-
-                    <div className=' shadow-2xl bg-white relative differentProductItems'>
-                        <img src="/images/thumbnail.png" alt="" />
-                        <div className='p-2 differentProductItemsContent'>
-                            <p className='font-semibold'>Essence Mascara Lash Princess</p>
-                            <span className='text-amber-700 font-bold'>Rs 9.99</span>
-                            <p className='text-gray-500 text-xs py-2'>Essence</p>
-                            <div className='flex items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <p className='text-xs pl-1'>(4.94)</p>
-                                </div>
-                                <div>
-                                    <button className='bg-blue-600 text-white py-1 px-3 rounded-md text-sm'> ADD</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' absolute top-3 right-4 wishlistIcon'>
-                            <FaHeart className='text-red-800 text-xl' />
-                        </div>
-                    </div>
-
-                    <div className=' shadow-2xl bg-white relative differentProductItems'>
-                        <img src="/images/thumbnail.png" alt="" />
-                        <div className='p-2 differentProductItemsContent'>
-                            <p className='font-semibold'>Essence Mascara Lash Princess</p>
-                            <span className='text-amber-700 font-bold'>Rs 9.99</span>
-                            <p className='text-gray-500 text-xs py-2'>Essence</p>
-                            <div className='flex items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <p className='text-xs pl-1'>(4.94)</p>
-                                </div>
-                                <div>
-                                    <button className='bg-blue-600 text-white py-1 px-3 rounded-md text-sm'> ADD</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' absolute top-3 right-4 wishlistIcon'>
-                            <FaHeart className='text-red-800 text-xl' />
-                        </div>
-                    </div>
-
-                    <div className=' shadow-2xl bg-white relative differentProductItems'>
-                        <img src="/images/thumbnail.png" alt="" />
-                        <div className='p-2 differentProductItemsContent'>
-                            <p className='font-semibold'>Essence Mascara Lash Princess</p>
-                            <span className='text-amber-700 font-bold'>Rs 9.99</span>
-                            <p className='text-gray-500 text-xs py-2'>Essence</p>
-                            <div className='flex items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <p className='text-xs pl-1'>(4.94)</p>
-                                </div>
-                                <div>
-                                    <button className='bg-blue-600 text-white py-1 px-3 rounded-md text-sm'> ADD</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' absolute top-3 right-4 wishlistIcon'>
-                            <FaHeart className='text-red-800 text-xl' />
-                        </div>
-                    </div>
-
-                    <div className=' shadow-2xl bg-white relative differentProductItems'>
-                        <img src="/images/thumbnail.png" alt="" />
-                        <div className='p-2 differentProductItemsContent'>
-                            <p className='font-semibold'>Essence Mascara Lash Princess</p>
-                            <span className='text-amber-700 font-bold'>Rs 9.99</span>
-                            <p className='text-gray-500 text-xs py-2'>Essence</p>
-                            <div className='flex items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <p className='text-xs pl-1'>(4.94)</p>
-                                </div>
-                                <div>
-                                    <button className='bg-blue-600 text-white py-1 px-3 rounded-md text-sm'> ADD</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' absolute top-3 right-4 wishlistIcon'>
-                            <FaHeart className='text-red-800 text-xl' />
-                        </div>
-                    </div>
-
-                    <div className=' shadow-2xl bg-white relative differentProductItems'>
-                        <img src="/images/thumbnail.png" alt="" />
-                        <div className='p-2 differentProductItemsContent'>
-                            <p className='font-semibold'>Essence Mascara Lash Princess</p>
-                            <span className='text-amber-700 font-bold'>Rs 9.99</span>
-                            <p className='text-gray-500 text-xs py-2'>Essence</p>
-                            <div className='flex items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <p className='text-xs pl-1'>(4.94)</p>
-                                </div>
-                                <div>
-                                    <button className='bg-blue-600 text-white py-1 px-3 rounded-md text-sm'> ADD</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' absolute top-3 right-4 wishlistIcon'>
-                            <FaHeart className='text-red-800 text-xl' />
-                        </div>
-                    </div>
-
-                    <div className=' shadow-2xl bg-white relative differentProductItems'>
-                        <img src="/images/thumbnail.png" alt="" />
-                        <div className='p-2 differentProductItemsContent'>
-                            <p className='font-semibold'>Essence Mascara Lash Princess</p>
-                            <span className='text-amber-700 font-bold'>Rs 9.99</span>
-                            <p className='text-gray-500 text-xs py-2'>Essence</p>
-                            <div className='flex items-center justify-between'>
-                                <div className='flex items-center'>
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <IoIosStar className='text-yellow-600' />
-                                    <p className='text-xs pl-1'>(4.94)</p>
-                                </div>
-                                <div>
-                                    <button className='bg-blue-600 text-white py-1 px-3 rounded-md text-sm'> ADD</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' absolute top-3 right-4 wishlistIcon'>
-                            <FaHeart className='text-red-800 text-xl' />
-                        </div>
+                    <div>
+                        {checkCartItems.length == 1
+                            ?
+                            <button className='bg-red-600 text-white py-1 px-3 rounded-md text-sm cursor-pointer font-semibold' onClick={removeFromCart} > Remove</button>
+                            :
+                            <button className='bg-blue-600 font-semibold text-white py-1 px-3 rounded-md text-sm cursor-pointer' onClick={AddToCart}> ADD</button>
+                        }
                     </div>
                 </div>
-            </section>
-        </>
+            </div>
+            <div className=' absolute top-3 right-4 wishlistIcon'>
+                <FaHeart className='text-red-800 text-xl' />
+            </div>
+        </div>
     )
 }
