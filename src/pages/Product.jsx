@@ -40,7 +40,7 @@ export default function Product() {
 
   let [currentPage, setcurrentPage] = useState(null)
 
-  let [mobileSortBy,setmobileSortBy]=useState(false)
+  let [mobileSortBy, setmobileSortBy] = useState(false)
 
 
 
@@ -139,12 +139,12 @@ export default function Product() {
     <>
       <div className='w-full bottom-0 z-10 border-1 bg-white fixed  lg:hidden sm:hidden ' id='mobile-filter-buttons'>
         <div className='w-full grid grid-cols-2 p-3'>
-          <button className='border-r' onClick={()=>setmobileSortBy(!mobileSortBy)}>{dropDownMenu}</button>
+          <button className='border-r' onClick={() => setmobileSortBy(!mobileSortBy)}>{dropDownMenu}</button>
           <button onClick={() => setmobileFilterButton(!mobileFilterButton)}>Filters</button>
         </div>
       </div>
 
-      <div className={`lg:hidden sm:hidden  w-[250px] bg-white border-1 rounded-sm -translate-x-1/2 left-[50%] -translate-y-1/2 shadow-lg fixed top-1/2    ${mobileSortBy ? 'block' : 'hidden'} `}>
+      <div className={`lg:hidden sm:hidden  w-[250px] bg-white border-1 rounded-sm -translate-x-1/2 left-[50%] -translate-y-1/2 shadow-lg fixed top-1/2 z-99   ${mobileSortBy ? 'block' : 'hidden'} `}>
 
         <nav>
           <ul>
@@ -154,32 +154,32 @@ export default function Product() {
               let { id, title } = value
               return (
                 <li className='p-2 border-b border-gray-400'
-                onClick={()=>{
-                  setmobileSortBy(false)
-                  setsorting(id)
-                  setdropDownMenu(title)
-                }}
+                  onClick={() => {
+                    setmobileSortBy(false)
+                    setsorting(id)
+                    setdropDownMenu(title)
+                  }}
                 >{title}</li>
               )
-
-
             })}
-
-
           </ul>
         </nav>
       </div>
 
-      <section className='max-w-full bg-white'>
+      <section className='max-w-full relative  bg-white'>
 
-        <div className=' my-10 grid lg:grid-cols-[15%_auto] sm:grid-cols-[30%_auto] gap-5'>
+        <div className={`w-full absolute top-0 h-full bg-[rgba(0,0,0,0.6)] lg:hidden sm:hidden  ${mobileSortBy || mobileFilterButton ? 'block' : 'hidden'} `} id='overlay'>
 
-          <div className={`max-w-full cursor-pointer lg:block sm:block bg-white lg:static sm:static  absolute top-[20%] ${mobileFilterButton ? '' : 'hidden'} `} id='Fliter'>
+        </div>
+
+        <div className=' lg:my-10 sm:my-10 grid lg:grid-cols-[15%_auto] sm:grid-cols-[30%_auto] gap-5'>
+
+          <div className={`lg:w-full sm:w-full w-[70%] top-2 lg:static sm:static absolute left-1/2 -translate-x-1/2 sm:translate-x-0 lg:translate-x-0 z-9 cursor-pointer lg:block sm:block bg-white ${mobileFilterButton ? 'block' : 'hidden'} `}  id='Fliter'>
             <div className='w-full mb-3 flex justify-around' id='heading'>
-              <h3 className='uppercase text-black font-semibold text-sm'>FILTERS</h3>
+              <h3 className='uppercase text-black font-semibold text-sm' onClick={() => setmobileFilterButton(!mobileFilterButton)}>FILTERS</h3>
               <h1 className='uppercase text-sm text-red-500 font-semibold'>Clear all</h1>
             </div>
-            <div className='p-4 overflow-y-scroll h-[250px] scrollbar-none' style={{ border: "1px solid #ccc" }}>
+            <div className='p-4 overflow-y-scroll lg:h-[250px] sm:h-[250px] h-[150px] scrollbar-none' style={{ border: "1px solid #ccc" }}>
               <h4 className='uppercase font-bold'>categories</h4>
               <div className='my-2'>
                 <ul>
@@ -187,7 +187,7 @@ export default function Product() {
                   {categoryData.map((value, index) => {
                     return (
                       <li className='py-2'>
-                        <input type="checkbox" value={value.slug} onChange={getCategoryCheck} /> {value.name}
+                        <input type="checkbox" value={value.slug} onChange={getCategoryCheck} onClick={() => setmobileFilterButton(false)} /> {value.name}
                       </li>
                     )
                   })}
@@ -195,14 +195,14 @@ export default function Product() {
                 </ul>
               </div>
             </div>
-            <div className='p-4 overflow-y-scroll h-[250px] ' style={{ border: "1px solid #ccc" }}>
+            <div className='p-4 overflow-y-scroll lg:h-[250px] sm:h-[250px] h-[150px] ' style={{ border: "1px solid #ccc" }}>
               <h4 className='uppercase font-bold'>BRAND</h4>
               <div className='my-2'>
                 <ul>
                   {brandData.map((value, index) => {
                     return (
                       <li className='py-2'>
-                        <input type="checkbox" value={value.slug} onChange={getBrandFilter} /> {value.name}
+                        <input type="checkbox" value={value.slug} onChange={getBrandFilter} onClick={() => setmobileFilterButton(false)} /> {value.name}
                       </li>
                     )
                   })}
@@ -215,16 +215,28 @@ export default function Product() {
               <div className='my-2'>
                 <ul>
                   <li className='pb-3'>
-                    <input type="radio" name='priceFilter' onClick={() => setpriceFilter([10, 250])} />&nbsp;Rs. 10 to Rs. 250
+                    <input type="radio" name='priceFilter' onClick={() => {
+                      setpriceFilter([10, 250])
+                      setmobileFilterButton(false)
+                    }} />&nbsp;Rs. 10 to Rs. 250
                   </li>
                   <li className='pb-3'>
-                    <input type="radio" name='priceFilter' onClick={() => setpriceFilter([250, 500])} />&nbsp;Rs. 250 to Rs. 500
+                    <input type="radio" name='priceFilter' onClick={() => {
+                      setpriceFilter([250, 500])
+                      setmobileFilterButton(false)
+                    }} />&nbsp;Rs. 250 to Rs. 500
                   </li>
                   <li className='pb-3'>
-                    <input type="radio" name='priceFilter' onClick={() => setpriceFilter([500, 1000])} />&nbsp;Rs. 500 to Rs. 1000
+                    <input type="radio" name='priceFilter' onClick={() => {
+                      setpriceFilter([500, 1000])
+                      setmobileFilterButton(false)
+                    }} />&nbsp;Rs. 500 to Rs. 1000
                   </li>
                   <li className=''>
-                    <input type="radio" name='priceFilter' onClick={() => setpriceFilter([1000, 50000])} />&nbsp;Rs. 1000 to Above
+                    <input type="radio" name='priceFilter' onClick={() => {
+                      setpriceFilter([1000, 50000])
+                      setmobileFilterButton(false)
+                    }} />&nbsp;Rs. 1000 to Above
                   </li>
                 </ul>
               </div>
@@ -236,6 +248,7 @@ export default function Product() {
 
                   <li className='pb-3' onClick={() => {
                     setdiscountPriceFilter(5)
+                    setmobileFilterButton(false)
 
                   }}>
 
@@ -243,16 +256,19 @@ export default function Product() {
                   </li>
                   <li className='pb-3' onClick={() => {
                     setdiscountPriceFilter(10)
+                    setmobileFilterButton(false)
                   }}>
                     <input type="radio" name='discount' />&nbsp;10% and above
                   </li>
                   <li className='pb-3' onClick={() => {
                     setdiscountPriceFilter(15)
+                    setmobileFilterButton(false)
                   }}>
                     <input type="radio" name='discount' />&nbsp;15% and above
                   </li>
                   <li className='' onClick={() => {
                     setdiscountPriceFilter(20)
+                    setmobileFilterButton(false)
                   }}>
                     <input type="radio" name='discount' />&nbsp;20% and above
                   </li>
@@ -265,23 +281,25 @@ export default function Product() {
                 <ul>
                   <li className='pb-3' onClick={() => {
                     setratingFilter(4)
+                    setmobileFilterButton(false)
                   }}>
-                    <input type="radio" onClick={() => {
-
-                    }} />&nbsp;4★ & above
+                    <input type="radio"/>&nbsp;4★ & above
                   </li>
                   <li className='pb-3' onClick={() => {
                     setratingFilter(3)
+                    setmobileFilterButton(false)
                   }}>
                     <input type="radio" />&nbsp;3★ & above
                   </li>
                   <li className='pb-3' onClick={() => {
                     setratingFilter(2)
+                    setmobileFilterButton(false)
                   }}>
                     <input type="radio" />&nbsp;2★ & above
                   </li>
                   <li className='' onClick={() => {
                     setratingFilter(1)
+                    setmobileFilterButton(false)
                   }}>
                     <input type="radio" />&nbsp;1★ & above
                   </li>
@@ -289,6 +307,8 @@ export default function Product() {
               </div>
             </div>
           </div>
+
+
           <div className='w-full' id='product'>
 
             <div className='mb-3 flex justify-end relative' id='filterButton'>
@@ -341,7 +361,6 @@ export default function Product() {
               />
             </div>
           </div>
-
         </div>
       </section>
     </>

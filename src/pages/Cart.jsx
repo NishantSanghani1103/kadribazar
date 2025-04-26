@@ -59,7 +59,7 @@ export default function Cart() {
               <h4 className='font-semibold lg:text-2xl'>Order Summary</h4>
               <hr className="bg-[#ccc] h-px border-0 my-5" />
               <div className=' flex w-[95%] mx-auto items-center justify-between'>
-                <p className=' font-semibold uppercase ' >Items 0</p>
+                <p className=' font-semibold uppercase ' >Items {cart.length}</p>
                 <p className=' font-semibold uppercase ' >Rs.0</p>
               </div>
               <form action="">
@@ -107,6 +107,7 @@ function CartRow({ value }) {
   }
 
 
+
   useEffect(() => {
 
     let finalCart = cart.filter((value) => {
@@ -119,13 +120,14 @@ function CartRow({ value }) {
 
     // console.log(finalCart, id)
     setcart(finalCart)
+    console.log(finalCart)
   }, [currentQty])
 
   return (
     <tr className='font-semibold'>
       <td className='p-2'>
         <div className='lg:flex sm:flex items-center gap-4 '>
-          <img src={image} className='h-16 w-16 rounded-lg object-cover' alt="" />
+          <img src={image } className='h-16 w-16 rounded-lg object-cover' alt="" />
           {name}
         </div>
       </td>
