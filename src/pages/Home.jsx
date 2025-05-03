@@ -13,11 +13,16 @@ export default function Home() {
     let [homeItems, sethomeItems] = useState([])
 
     let getHomeProduct = () => {
-        axios.get("https://dummyjson.com/products")
+        axios.get("https://wscubetech.co/ecommerce-api/products.php", {
+            params: {
+                page: 4,
+                limit: 30
+            }
+        })
             .then((res) => res.data)
             .then((finalres) => {
-                console.log(finalres.products)
-                sethomeItems(finalres.products)
+                console.log(finalres.data)
+                sethomeItems(finalres.data)
             })
     }
 
@@ -129,7 +134,7 @@ export default function Home() {
 
 function CategoryItems({ hData }) {
 
-    let { id, title, description, rating, price, thumbnail, category } = hData
+    let { id, name, description, rating, price, image, category } = hData
 
     let { cart, setcart } = useContext(counterContext)
 
@@ -137,11 +142,12 @@ function CategoryItems({ hData }) {
 
     let homeItmesObj = {
         id,
-        title,
+        name,
         rating,
         price,
-        thumbnail,
-        category
+        image,
+        category,
+        qty: 1
     }
 
     let AddToCart = () => {
@@ -165,9 +171,9 @@ function CategoryItems({ hData }) {
 
     return (
         <div className=' shadow-2xl bg-white relative differentProductItems'>
-            <img src={thumbnail} alt="" className='mx-auto' />
+            <img src={image} alt="" className='mx-auto' />
             <div className='p-2 differentProductItemsContent'>
-                <p className='font-semibold'>{title}</p>
+                <p className='font-semibold'>{name}</p>
                 <span className='text-amber-700 font-bold'>Rs {price}</span>
                 <p className='text-gray-500 text-xs py-2'>{category}</p>
                 <div className='flex items-center justify-between'>

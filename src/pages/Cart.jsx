@@ -5,6 +5,14 @@ import { ToastContainer, toast } from 'react-toastify';
 export default function Cart() {
 
   let { cart, setcart } = useContext(counterContext)
+
+  let total = 0;
+  let finalTotal = 0
+  cart.forEach((item) => {
+    total += item.qty * item.price;
+    finalTotal = 100 + total
+  });
+
   return (
     <>
       <section className='max-w-full' id='cart'>
@@ -60,7 +68,7 @@ export default function Cart() {
               <hr className="bg-[#ccc] h-px border-0 my-5" />
               <div className=' flex w-[95%] mx-auto items-center justify-between'>
                 <p className=' font-semibold uppercase ' >Items {cart.length}</p>
-                <p className=' font-semibold uppercase ' >Rs.0</p>
+                <p className=' font-semibold uppercase ' >Rs.{total}</p>
               </div>
               <form action="">
                 <p className='py-5 px-2 uppercase font-semibold text-sm'>Shipping</p>
@@ -74,7 +82,7 @@ export default function Cart() {
                   <hr className="bg-[#ccc] h-px border-0" />
                   <div className='flex w-[95%] mx-auto justify-between my-5'>
                     <p className='uppercase font-semibold text-sm'>Total cost</p>
-                    <p className='uppercase font-semibold text-sm'>rs.0</p>
+                    <p className='uppercase font-semibold text-sm'>rs {finalTotal}</p>
                   </div>
                   <button className='text-white w-[95%] block mx-auto uppercase bg-indigo-500 p-2'>checkout</button>
                 </div>
@@ -127,12 +135,12 @@ function CartRow({ value }) {
     <tr className='font-semibold'>
       <td className='p-2'>
         <div className='lg:flex sm:flex items-center gap-4 '>
-          <img src={image } className='h-16 w-16 rounded-lg object-cover' alt="" />
+          <img src={image} className='h-16 w-16 rounded-lg object-cover' alt="" />
           {name}
         </div>
       </td>
       <td className='p-2'>
-        <input type="number" value={currentQty} className='border-1 w-20 text-center' min={1} max={10} onChange={(e) => setcurrentQty(e.target.value)} />
+        <input type="number" value={qty} className='border-1 w-20 text-center' min={1} max={10} onChange={(e) => setcurrentQty(e.target.value)} />
       </td>
       <td className='p-2'>
         Rs. {price}
@@ -146,5 +154,3 @@ function CartRow({ value }) {
     </tr>
   )
 }
-
-
