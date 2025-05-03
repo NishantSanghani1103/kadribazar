@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { IoArrowBackOutline } from "react-icons/io5";
 import { counterContext } from './MainContext';
 import { ToastContainer, toast } from 'react-toastify';
+import { Link } from 'react-router';
 export default function Cart() {
 
   let { cart, setcart } = useContext(counterContext)
@@ -60,7 +61,7 @@ export default function Cart() {
               </div>
               <div className='my-8 flex  gap-1 items-center'>
                 <IoArrowBackOutline className='text-xl text-indigo-600 font-bold' />
-                <p className='text-indigo-600 font-bold text-sm'>Continue Shopping</p>
+                <Link to={'/product'} className='text-indigo-600 font-bold text-sm'>Continue Shopping</Link>
               </div>
             </div>
             <div className='w-[95%] mx-auto' id='orderSummary' >

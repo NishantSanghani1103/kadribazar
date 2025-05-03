@@ -111,11 +111,16 @@ export default function Home() {
 
 
                     {
-                        homeItems.map((items, index) => {
-                            return (
-                                <CategoryItems hData={items} key={index} />
-                            )
-                        })
+
+                        homeItems.length >= 1 ?
+
+                            homeItems.map((items, index) => {
+                                return (
+                                    <CategoryItems hData={items} key={index} />
+                                )
+                            })
+                            :
+                            <p>Loaing....</p>
                     }
 
 
